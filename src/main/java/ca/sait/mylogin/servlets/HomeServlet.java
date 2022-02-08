@@ -21,8 +21,10 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Look if user has already logged in and has an active session
         String username = (String) request.getSession().getAttribute("username");
 
+        //Without an active session, users redirected to login page
         if (username == null) {
             response.sendRedirect("login");
             return;

@@ -24,9 +24,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+       
+        //Check if user has already logged in and has an active session
         if (request.getSession().getAttribute("username") != null) {
 
+            //Check if user had requested to logout from session
             String query = request.getQueryString();
             if (query != null && query.contains("logout")) {
                 request.getSession().invalidate();
@@ -52,6 +54,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        //Ensure credentials are entered and valid before authenticating a session
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("message", "Missing username or password.");
         } else {
